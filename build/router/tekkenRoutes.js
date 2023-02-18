@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const tekkenController_1 = require("../controllers/tekkenController");
+exports.router = (0, express_1.Router)();
+const { getTekken, filterTekken, createTekken, deleteTekken, editTekken } = tekkenController_1.default;
+exports.router.get('/tekken', getTekken);
+exports.router.post('/tekken', createTekken);
+exports.router.delete('/tekken/:id', deleteTekken);
+exports.router.put('/tekken/:id', editTekken);
+exports.router.get('/filter-tekken', filterTekken);
