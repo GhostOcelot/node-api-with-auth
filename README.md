@@ -13,4 +13,4 @@ JWT_REFRESH_TOKEN_SECRET - generate a safe secret key for the refresh token
 JWT_ACCESS_TOKEN_EXPIRE_TIME - set expiration time for access token
 MONGO_DB_URL - url with port for MongoDB
 
-Files are served statically from the /images folder in the project root folder. This folder needs to be created manually, because it's in the .gitignore file and will not be posted to the remote repository.
+Files are served statically from the /images directory in the project root folder. This folder needs to be created manually, because it's in the .gitignore file and will not be posted to the remote repository.
