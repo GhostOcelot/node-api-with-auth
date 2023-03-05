@@ -1,11 +1,29 @@
 import * as Express from 'express';
 import { Post } from '../mongoConfig';
 
+interface IQuery {
+  limit: string;
+  page: string;
+}
+
 const getPosts = async (req: Express.Request, res: Express.Response) => {
   const { userId } = req.body;
+  const { limit, page } = req.query as unknown as IQuery;
+  const parsedLimit = parseInt(limit);
+  const parsedPage = parseInt(page);
+
   try {
-    const posts = await Post.find({ userId });
-    res.send(posts);
+    const count = await Post.find({ userId }).count();
+
+    const offset = (parsedPage - 1) * parsedLimit;
+    const firstPage = 1;
+    const lastPage = Math.ceil(count / parsedLimit);
+    const previousPage = parsedPage - 1;
+    const nextPage = parsedPage + 1;
+    const currentPage = parsedPage;
+
+    const posts = await Post.find({ userId }).limit(parsedLimit).skip(offset);
+    res.send({ posts, currentPage, firstPage, lastPage, previousPage, nextPage });
   } catch (err: any) {
     res.status(404).send({ error: err.message });
   }
